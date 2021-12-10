@@ -6,7 +6,7 @@
 /*   By: bbali <bbali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:52:07 by bbali             #+#    #+#             */
-/*   Updated: 2021/12/10 16:00:53 by bbali            ###   ########.fr       */
+/*   Updated: 2021/12/10 17:58:50 by bbali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(const char *s)
 {
-	int		i;
+	size_t	i;
 	
 	if (!s)
 		return (0);
@@ -32,7 +32,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	
 	if (!s1)
 	{
-		s1 = (char *)malloc(sizeof(char) * 1);
+		s1 = (char *)malloc(sizeof(char));
 		s1[0] = '\0';
 	}
 	if (!s1 || !s2)
@@ -69,33 +69,32 @@ char	*ft_strchr(char *str, int c)
 	return (NULL);
 }
 
-//cree une variable pour malloc ou pas le '\n'
-char	*get_line(char *buffer)
+char	*get_line(char *buff)
 {
 	int		i;
-	char	*str;
+	char	*res;
 
 	i = 0;
-	if (!buffer)
+	if (!buff[i])
 		return (NULL);
-	while (buffer[i] && buffer[i] != '\n')
+	while (buff[i] && buff[i] != '\n')
 		i++;
-	str = (char *)malloc(sizeof(char) * (i + 2));
-	if (!str)
+	res = (char *)malloc(sizeof(char) * (i + 2));
+	if (!res)
 		return (NULL);
 	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
+	while (buff[i] && buff[i] != '\n')
 	{
-		str[i] = buffer[i];
+		res[i] = buff[i];
 		i++;
 	}
-	if (buffer[i] == '\n')
+	if (buff[i] == '\n')
 	{
-		str[i] = buffer[i];
+		res[i] = buff[i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	res[i] = '\0';
+	return (res);
 }
 
 char	*skip_line(char *str)
@@ -113,12 +112,14 @@ char	*skip_line(char *str)
 		return (NULL);
 	}
 	res = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-	if (!str)
+	if (!res)
 		return (NULL);
 	i++;
 	j = 0;
 	while (str[i])
+	{
 		res[j++] = str[i++];
+	}
 	res[j] = '\0';
 	free(str);
 	return (res);
