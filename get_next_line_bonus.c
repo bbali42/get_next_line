@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbali <bbali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/03 12:52:13 by bbali             #+#    #+#             */
-/*   Updated: 2021/12/21 19:50:23 by bbali            ###   ########.fr       */
+/*   Created: 2021/12/18 14:32:41 by bbali             #+#    #+#             */
+/*   Updated: 2021/12/21 19:28:55 by bbali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*read_file(int fd, char *tmp)
 {
@@ -39,14 +39,14 @@ char	*read_file(int fd, char *tmp)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*tmp;
+	static char	*tmp[1024];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	tmp = read_file(fd, tmp);
-	if (!tmp)
+	tmp[fd] = read_file(fd, tmp[fd]);
+	if (!tmp[fd])
 		return (NULL);
-	line = get_line(tmp);
-	tmp = skip_line(tmp);
+	line = get_line(tmp[fd]);
+	tmp[fd] = skip_line(tmp[fd]);
 	return (line);
 }
