@@ -41,7 +41,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*tmp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE <= INT_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE == INT_MAX)
 		return (NULL);
 	tmp = read_file(fd, tmp);
 	if (!tmp)
